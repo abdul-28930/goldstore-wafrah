@@ -22,13 +22,11 @@ const Home: FC = () => {
       <ProductSection 
         title="NEW ARRIVALS" 
         products={newArrivals}
-        viewAllLink="/collections/new-arrivals"
       />
       
       <ProductSection 
         title="TRENDING NOW" 
         products={trendingProducts}
-        viewAllLink="/collections/trending"
         bgColor="bg-amber-50"
       />
       
@@ -37,7 +35,6 @@ const Home: FC = () => {
       <ProductSection 
         title="ON SALE" 
         products={saleProducts}
-        viewAllLink="/collections/sale"
       />
       
       <StoreLocationsSection />

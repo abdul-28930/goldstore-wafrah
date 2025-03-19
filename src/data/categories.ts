@@ -10,49 +10,49 @@ export const categories: Category[] = [
     id: 'necklaces',
     name: 'NECKLACES',
     imageSrc: '/categories/goldnecklace.jpg',
-    link: '/categories/necklaces'
+    link: '/collections/necklaces'
   },
   {
     id: 'earrings',
     name: 'EARRINGS',
     imageSrc: '/categories/goldearrings.jpg',
-    link: '/categories/earrings'
+    link: '/collections/earrings'
   },
   {
     id: 'rings',
     name: 'RINGS',
     imageSrc: '/categories/goldrings.jpg',
-    link: '/categories/rings'
+    link: '/collections/rings'
   },
   {
     id: 'bangles',
     name: 'BANGLES',
     imageSrc: '/categories/goldbangles.jpg',
-    link: '/categories/bangles'
+    link: '/women/bangles'
   },
   {
     id: 'bracelets',
     name: 'BRACELETS',
     imageSrc: '/categories/goldbracelets.jpg',
-    link: '/categories/bracelets'
+    link: '/collections/bracelets'
   },
   {
     id: 'pendants',
     name: 'PENDANTS',
     imageSrc: '/categories/goldpendants.jpg',
-    link: '/categories/pendants'
+    link: '/collections/pendants'
   },
   {
     id: 'chains',
     name: 'CHAINS',
     imageSrc: '/categories/goldchain.jpg',
-    link: '/categories/chains'
+    link: '/collections/chains'
   },
   {
     id: 'bridal',
     name: 'BRIDAL COLLECTION',
     imageSrc: '/categories/goldbridal.jpg',
-    link: '/categories/bridal'
+    link: '/women/bridal'
   }
 ];
 

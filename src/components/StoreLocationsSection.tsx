@@ -36,15 +36,6 @@ const StoreLocationsSection: FC = () => {
             </Link>
           ))}
         </div>
-        
-        <div className="mt-10 text-center">
-          <Link 
-            href="/stores" 
-            className="inline-block border-2 border-amber-700 text-amber-700 hover:bg-amber-700 hover:text-white px-6 py-3 font-medium transition-colors"
-          >
-            VIEW ALL LOCATIONS
-          </Link>
-        </div>
       </div>
     </section>
   );

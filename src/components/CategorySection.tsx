@@ -14,7 +14,7 @@ const CategorySection: FC = () => {
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {categories.map((category) => (
-            <Link key={category.id} href={category.link} className="group">
+            <Link key={category.id} href={category.link} className="group" target="_blank" rel="noopener noreferrer">
               <div className="relative overflow-hidden rounded-lg aspect-square shadow-md transition-transform duration-300 group-hover:shadow-xl group-hover:scale-105">
                 <Image
                   src={category.imageSrc}
@@ -22,7 +22,7 @@ const CategorySection: FC = () => {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/70 to-transparent flex items-end justify-center p-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-amber-900/70 to-transparent flex items-end justify-center p-4 group-hover:from-amber-600/80 transition-all duration-300">
                   <h3 className="text-white font-bold text-lg md:text-xl text-center">{category.name}</h3>
                 </div>
               </div>
@@ -32,7 +32,7 @@ const CategorySection: FC = () => {
         
         <div className="mt-10 text-center">
           <Link 
-            href="/categories" 
+            href="/all-categories" 
             className="inline-block border-2 border-amber-700 text-amber-700 hover:bg-amber-700 hover:text-white px-6 py-3 font-medium transition-colors"
           >
             VIEW ALL CATEGORIES
