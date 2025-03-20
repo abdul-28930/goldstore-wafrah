@@ -1,14 +1,26 @@
+"use client";
+
 import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Product } from '@/data/products';
 
+// Updated interface to match MongoDB product structure
 interface ProductCardProps {
-  product: Product;
+  product: {
+    productId: string;
+    name: string;
+    brand: string;
+    price: number;
+    images: string[];
+    category: string;
+    launchDate: string;
+    description: string;
+    _id?: string;
+  };
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product }) => {
-  const { id, name, brand, price, imageSrc, salePrice } = product;
+  const { productId, name, brand, price, images, launchDate } = product;
   
   // Format price in Indian Rupees
   const formatPrice = (amount: number) => {
@@ -19,16 +31,29 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
     }).format(amount);
   };
 
+  // Check if product is new (launched within last 30 days)
+  const isNew = () => {
+    const launchDate = new Date(product.launchDate);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    return launchDate >= thirtyDaysAgo;
+  };
+
+  // Default image if images array is empty or undefined
+  const imageUrl = images && images.length > 0 ? images[0] : '/placeholder-image.jpg';
+
   return (
-    <div className="group">
+    <div className="group relative">
       <div className="relative overflow-hidden bg-gray-100 rounded-lg aspect-square">
-        <Link href={`/products/${id}`}>
+        <Link href={`/products/${productId}`}>
           <div className="relative w-full h-full transition-transform duration-500 group-hover:scale-105">
             <Image
-              src={imageSrc}
+              src={imageUrl}
               alt={name}
               fill
+              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
               className="object-cover"
+              priority={isNew()}
             />
           </div>
         </Link>
@@ -53,29 +78,18 @@ const ProductCard: FC<ProductCardProps> = ({ product }) => {
           </button>
         </div>
         
-        {/* Sale badge */}
-        {salePrice && (
-          <div className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
-            SALE
+        {/* New Arrival badge - show for products launched within the last 30 days */}
+        {isNew() && (
+          <div className="absolute top-4 left-4 bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded">
+            NEW
           </div>
         )}
       </div>
       
-      <div className="mt-4">
-        <div className="text-xs text-amber-700 font-medium mb-1">{brand}</div>
-        <Link href={`/products/${id}`} className="block">
-          <h3 className="text-sm font-bold text-gray-800 hover:text-amber-600 transition-colors">{name}</h3>
-        </Link>
-        <div className="mt-2 flex items-center">
-          {salePrice ? (
-            <>
-              <span className="text-lg font-bold text-amber-700">{formatPrice(salePrice)}</span>
-              <span className="ml-2 text-sm text-gray-500 line-through">{formatPrice(price)}</span>
-            </>
-          ) : (
-            <span className="text-lg font-bold text-amber-700">{formatPrice(price)}</span>
-          )}
-        </div>
+      <div className="mt-4 space-y-2">
+        <h3 className="text-sm font-medium text-gray-900 truncate">{name}</h3>
+        <p className="text-sm text-gray-500 truncate">{brand}</p>
+        <p className="text-lg font-semibold text-amber-600">{formatPrice(price)}</p>
       </div>
     </div>
   );

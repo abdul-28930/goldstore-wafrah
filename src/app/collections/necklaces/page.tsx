@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import { getProductsByCategory } from '@/data/products';
+import { getProducts } from '@/lib/api';
 import ProductCard from '@/components/ProductCard';
 
 export const metadata: Metadata = {
@@ -9,8 +9,14 @@ export const metadata: Metadata = {
   description: 'Explore our exquisite collection of gold necklaces, featuring traditional and contemporary designs crafted with the finest materials.',
 };
 
-export default function NecklacesPage() {
-  const necklaces = getProductsByCategory('necklaces');
+export default async function NecklacesPage() {
+  // Fetch necklaces from MongoDB
+  const necklaces = await getProducts('necklaces');
+  
+  // Sort by launch date (newest first)
+  const sortedNecklaces = [...necklaces].sort((a, b) => 
+    new Date(b.launchDate).getTime() - new Date(a.launchDate).getTime()
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -46,10 +52,10 @@ export default function NecklacesPage() {
         </div>
       </div>
 
-      {necklaces.length > 0 ? (
+      {sortedNecklaces.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {necklaces.map((product) => (
-            <ProductCard key={product.id} product={product} />
+          {sortedNecklaces.map((product) => (
+            <ProductCard key={product.productId} product={product} />
           ))}
         </div>
       ) : (

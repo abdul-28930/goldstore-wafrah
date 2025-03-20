@@ -1,24 +1,29 @@
+"use client";
+
 import { FC } from 'react';
 
 interface WhatsAppButtonProps {
-  phoneNumber: string;
+  phoneNumber?: string;
   message?: string;
 }
 
 const WhatsAppButton: FC<WhatsAppButtonProps> = ({ 
-  phoneNumber, 
+  phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+919876543210", 
   message = "Hello! I'm interested in your gold jewelry collection." 
 }) => {
+  // Remove any non-numeric characters from phone number
+  const cleanPhoneNumber = phoneNumber.replace(/\D/g, '');
   const encodedMessage = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  const whatsappUrl = `https://wa.me/${cleanPhoneNumber}?text=${encodedMessage}`;
   
   return (
     <a 
       href={whatsappUrl} 
       target="_blank" 
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 flex items-center justify-center"
+      className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 flex items-center justify-center focus:ring-2 focus:ring-green-600 focus:outline-none"
       aria-label="Chat with us on WhatsApp"
+      role="button"
     >
       <svg 
         xmlns="http://www.w3.org/2000/svg" 
